@@ -1,0 +1,18 @@
+{% extends 'shared/base.html' %}
+{% block title %}
+<title>Home</title>
+{% endblock %}
+{% block content %}
+
+{% include 'sections/banner.html' %}
+{% if user.is_authenticated %}
+{% if user.is_superuser %}
+{% include 'sections/admin-section.html' %}
+{% elif user.is_staff and is_librarian %}
+{% include 'sections/librarian-section.html' %}
+{% elif user.is_staff and is_office_staff %}
+{% include 'sections/office-staff-section.html' %}
+{% endif %}
+{% endif %}
+
+{% endblock content %}

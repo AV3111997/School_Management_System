@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}{% endblock %}
+    {% load static %}
+    {% include 'shared/links.html' %}
+    {% include 'shared/preload_scripts.html' %}
+</head>
+
+<body>
+    <header>
+        {% include 'shared/navbar.html' %}
+    </header>
+    <main>
+        <div class="col-md-12 custom-background"
+            style="background-image: url('{% static 'res/images/body-bg.jpg' %}');">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </main>
+    <footer>
+        {% include 'shared/footer.html' %}
+    </footer>
+    {% include 'shared/postload_scripts.html' %}
+</body>
+
+</html>
