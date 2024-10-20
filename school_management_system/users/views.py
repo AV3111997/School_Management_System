@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib import messages
+from .models import Students, Books, Library, Fees
+from .forms import StudentsForm, BooksForm, LibraryForm, FeesForm
 
 # Create your views here.
 

@@ -26,3 +26,5 @@ venv
 # Windows
 Thumbs.db
 
+# Folders
+db_data

@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="col-md-10">
             <div class="card bg-light text-dark" style="border-radius: 1rem;">
                 <div class="card-body p-5 text-center">
                     {% if messages %}
@@ -14,36 +14,52 @@
                         {% endfor %}
                     {% endif %}
                     <div class="mb-md-4 mt-md-4 pb-5">
-                        <h2 class="fw-bold mb-2 text-uppercase">Enter staff details and assign role!</h2>
+                        <h2 class="fw-bold mb-4 text-uppercase">Enter Staff Details and Assign Role!</h2>
                         <form method="POST" action="{% url 'register' %}">
                             {% csrf_token %}
-                            <div data-mdb-input-init class="form-outline form-white mb-4">
-                                {{ form.first_name }}
-                                <label class="form-label" for="first_name">First Name</label>
-                            </div>
-                            <div data-mdb-input-init class="form-outline form-white mb-4">
-                                {{ form.last_name }}
-                                <label class="form-label" for="last_name">Last Name</label>
-                            </div>
-                            <div data-mdb-input-init class="form-outline form-white mb-4">
-                                {{ form.email }}
-                                <label class="form-label" for="email">Email</label>
-                            </div>
-                            <div data-mdb-input-init class="form-outline form-white mb-4">
-                                {{ form.phone_number }}
-                                <label class="form-label" for="phone_number">Phone</label>
-                            </div>
-                            <div data-mdb-input-init class="form-outline form-white mb-4">
-                                {{ form.role }}
-                                <label class="form-label" for="role">Role</label>
-                            </div>
-                            <div class="form-outline form-white mb-4">
-                                {{ form.password }}
-                                <label class="form-label" for="password">Password</label>
-                            </div>
-                            <div class="form-outline form-white mb-4">
-                                {{ form.confirm_password }}
-                                <label class="form-label" for="confirm_password">Confirm Password</label>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline form-white">
+                                        {{ form.first_name }}
+                                        <label class="form-label" for="first_name">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline form-white">
+                                        {{ form.last_name }}
+                                        <label class="form-label" for="last_name">Last Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline form-white">
+                                        {{ form.email }}
+                                        <label class="form-label" for="email">Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline form-white">
+                                        {{ form.phone_number }}
+                                        <label class="form-label" for="phone_number">Phone</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div data-mdb-input-init class="form-outline form-white">
+                                        {{ form.role }}
+                                        <label class="form-label" for="role">Role</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline form-white">
+                                        {{ form.password }}
+                                        <label class="form-label" for="password">Password</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline form-white">
+                                        {{ form.confirm_password }}
+                                        <label class="form-label" for="confirm_password">Confirm Password</label>
+                                    </div>
+                                </div>
                             </div>
                             <button data-mdb-button-init data-mdb-ripple-init
                                 class="btn btn-outline-primary btn-lg px-5" type="submit">Register</button>
@@ -54,5 +70,6 @@
         </div>
     </div>
 </div>
+
 
 {% endblock %}
