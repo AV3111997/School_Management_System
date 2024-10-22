@@ -2,25 +2,20 @@ from django.db import models
 
 # Create your models here.
 
+class Grade(models.Model):
+    name = models.CharField(
+        max_length=100,
+        verbose_name="Grade",
+        blank=False
+    )
+    
+    def __str__(self):
+        return self.name
+
 class Students(models.Model):
     GENDER_CHOICES= [
         ("F", "Female"),
         ("M", "Male"),
-    ]
-    
-    GRADE_CHOICES = [
-        ('1', '1st Grade'),
-        ('2', '2nd Grade'),
-        ('3', '3rd Grade'),
-        ('4', '4th Grade'),
-        ('5', '5th Grade'),
-        ('6', '6th Grade'),
-        ('7', '7th Grade'),
-        ('8', '8th Grade'),
-        ('9', '9th Grade'),
-        ('10', '10th Grade'),
-        ('11', '11th Grade'),
-        ('12', '12th Grade'),
     ]
 
     name = models.CharField(
@@ -56,10 +51,10 @@ class Students(models.Model):
         verbose_name="Contact Number",
         blank=False
     )
-    grade = models.CharField(
-        max_length=2, 
-        choices=GRADE_CHOICES,
-        verbose_name="Grade"
+    grade = models.ForeignKey(Grade,
+        verbose_name="Grade",
+        on_delete=models.CASCADE, 
+        related_name='grade'
     ) 
 
     def __str__(self):
@@ -108,6 +103,10 @@ class Fees(models.Model):
         ('unpaid', 'Unpaid'),
         ('partially_paid', 'Partially Paid')
     ]
+    PAYMENT_METHOD_CHOICES = [
+        ('upi', 'UPI'),
+        ('cash', 'Cash'),
+    ]
     student = models.ForeignKey(
         Students,
         verbose_name="Student's Name",
@@ -126,11 +125,18 @@ class Fees(models.Model):
         default='unpaid',
         verbose_name='Status'
     )
+    payment_method = models.CharField(
+        max_length=20,
+        choices=PAYMENT_METHOD_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name='Payment Method',
+    )
     date_paid = models.DateField(
         null=True, 
         blank=True,
-        verbose_name='Payment Date'
+        verbose_name='Payment Date',
     )
 
     def __str__(self):
-        return self.student, self.amount, self.due_date, self.payment_status
+        return self.student, self.amount, self.due_date, self.payment_status, self.payment_method

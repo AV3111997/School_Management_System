@@ -1,6 +1,6 @@
 {% extends 'shared/base.html' %}
 {% block title %}
-<title>Register</title>
+<title>Register Student</title>
 {% endblock %}
 {% block content %}
 <div class="container col-md-8 bg-light py-5 h-100 section-divider">
@@ -15,57 +15,60 @@
                     {% endif %}
                     <div class="mb-md-4 mt-md-4 pb-5">
                         <h2 class="fw-bold mb-4 text-uppercase">Enter Staff Details and Assign Role!</h2>
-                        <form method="POST" action="{% url 'register' %}">
+                        <form method="POST" action="{% url 'student-register' %}">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div data-mdb-input-init class="form-outline form-white">
-                                        {{ form.first_name }}
-                                        <label class="form-label" for="first_name">First Name</label>
+                                        {{ form.name }}
+                                        <label class="form-label" for="first_name">Student's Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div data-mdb-input-init class="form-outline form-white">
-                                        {{ form.last_name }}
-                                        <label class="form-label" for="last_name">Last Name</label>
+                                        {{ form.date_of_birth }}
+                                        <label class="form-label" for="last_name">Date of Birth</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div data-mdb-input-init class="form-outline form-white">
-                                        {{ form.email }}
-                                        <label class="form-label" for="email">Email</label>
+                                        {{ form.gender }}
+                                        <label class="form-label" for="email">Gender</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div data-mdb-input-init class="form-outline form-white">
-                                        {{ form.phone_number }}
-                                        <label class="form-label" for="phone_number">Phone</label>
+                                        {{ form.father_name }}
+                                        <label class="form-label" for="phone_number">Father's Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div data-mdb-input-init class="form-outline form-white">
-                                        {{ form.role }}
-                                        <label class="form-label" for="role">Role</label>
+                                        {{ form.mother_name }}
+                                        <label class="form-label" for="role">Mother's Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline form-white">
-                                        {{ form.password }}
-                                        <label class="form-label" for="password">Password</label>
+                                        {{ form.contact_number }}
+                                        <label class="form-label" for="password">Contact Number</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline form-white">
-                                        {{ form.confirm_password }}
-                                        <label class="form-label" for="confirm_password">Confirm Password</label>
+                                        {{ form.address }}
+                                        <label class="form-label" for="confirm_password">Address</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-outline form-white">
+                                        {{ form.grade }}
+                                        <label class="form-label" for="confirm_password">Grade</label>
                                     </div>
                                 </div>
                             </div>
                             <button data-mdb-button-init data-mdb-ripple-init
                                 class="btn btn-outline-primary btn-lg px-5" type="submit">Register</button>
-                            {% if messages %}
-                            <a href="{% url 'users-list' %}" class="btn btn-primary btn-lg">User List</a>
-                            {% endif %}
                         </form>
                     </div>
                 </div>

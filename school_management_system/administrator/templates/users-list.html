@@ -1,0 +1,58 @@
+{% extends 'shared/base.html' %}
+{% block title %}
+<title>User List</title>
+{% endblock %}
+{% block content %}
+<div class="col-md-8 mx-auto section-divider">
+  <div class="container-fluid py-5 bg-light">
+    <div class="mb-5">
+      <h2 class="fw-bold mb-2 text-uppercase text-center">Users List</h2>
+    </div>
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="col-md-8 ms-auto">
+      <form method="get" class="d-flex align-items-center mb-4">
+        <div class="d-flex flex-grow-1 me-2">
+            <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Search by name" value="{{ search_query }}">
+            <select name="role" class="form-select form-select-sm">
+              <option value="" disabled selected>Filter by role</option>
+                {% for role in roles %}
+                <option value="{{ role }}" {% if role == role_filter %} selected {% endif %}>{{ role }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary btn-sm">Search & Filter</button>
+            <a href="{% url 'users-list' %}" class="btn btn-secondary btn-sm">Clear</a>
+        </div>
+    </form>
+    </div>
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">User ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user_object in users %}
+        <tr onclick="window.location.href='{% url 'user-detail' user_object.pk %}';" style="cursor: pointer;">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ user_object.id }}</td>
+          <td>{{ user_object.first_name }} {{ user_object.last_name }}</td>
+          <td>{{ user_object.role }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock content %}

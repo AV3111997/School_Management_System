@@ -8,10 +8,10 @@
 }
 
 .section-divider {
-    border-bottom: 1px solid #f2f2f2d1;
+    border-bottom: 1px solid darkgrey;
 }
 
-.custom-card-hover:hover {
+.card-hover-fx:hover {
     color: #0d6efd;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;

@@ -1,0 +1,43 @@
+{% extends 'shared/base.html' %}
+{% block title %}
+<title>Update Fees Payment Detail</title>
+{% endblock %}
+{% block content %}
+<div class="container col-md-8 bg-light py-5 h-100 section-divider">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-8">
+            <div class="card bg-light text-dark shadow" style="border-radius: 1rem;">
+                <div class="card-body p-5  text-center">
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-info mb-4">{{ message }}</div>
+                    {% endfor %}
+                    {% endif %}
+                    <div class="mb-md-4 mt-md-4 pb-5">
+                        <h2 class="fw-bold mb-3 text-uppercase">Update Fees Payment Detail</h2>
+                        <h2 class="mb-3">Making Payment For: {{ fee.student.name }}</h2>
+                        <h2 class="mb-3">Grade: {{ student.grade.name }}</h2>
+                        <form method="POST" action="{% url 'student-fee-update' student.pk fee.pk %}">
+                            {% csrf_token %}
+                            <div data-mdb-input-init class="form-outline form-white mb-4">
+                                {{ form.amount }}
+                                <label class="form-label">Amount to Pay</label>
+                            </div>
+                            <div data-mdb-input-init class="form-outline form-white mb-4">
+                                {{ form.payment_status }}
+                                <label class="form-label">Payment Status</label>
+                            </div>
+                            <div data-mdb-input-init class="form-outline form-white mb-4">
+                                {{ form.payment_method }}
+                                <label class="form-label">Payment Method</label>
+                            </div>
+                            <button data-mdb-button-init data-mdb-ripple-init
+                                class="btn btn-outline-primary btn-lg px-5" type="submit">Update and Make Payment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

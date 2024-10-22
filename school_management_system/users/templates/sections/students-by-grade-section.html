@@ -1,0 +1,25 @@
+<div class="col-md-8 mx-auto section-divider">
+    <div class="container-fluid py-5 bg-light">
+        <div class="mb-5">
+            <h2 class="text-center">Students by Grade Level</h2>
+        </div>
+        <div class="row justify-content-center px-5">
+            {% if grades %}
+            {% for grade in grades %}
+            <div class="col-md-4 mb-4">
+                <div class="card text-center card-hover-fx">
+                    <a href="{% url 'students-list-by-grade' grade.id %}" style="text-decoration: none; color: inherit;">
+                        <div class="card-body">
+                            <h5>{{ grade.name }}</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="text-center">Section is empty.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

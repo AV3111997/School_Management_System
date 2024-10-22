@@ -1,0 +1,54 @@
+{% extends 'shared/base.html' %}
+{% block title %}
+<title>{{ grade.name }} Students List</title>
+{% endblock %}
+{% block content %}
+<div class="col-md-8 mx-auto section-divider">
+  <div class="container-fluid py-5 bg-light">
+    <div class="mb-5">
+      <h2 class="fw-bold mb-2 text-uppercase text-center">{{ grade.name }} Grade Students List</h2>
+    </div>
+    {% if messages %}
+    <div class="alert alert-success" role="alert">
+      {% for message in messages %}
+      {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="col-md-8 ms-auto">
+      <form method="get" class="d-flex align-items-center mb-4">
+        <div class="d-flex flex-grow-1 me-2">
+            <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Search by name" value="{{ search_query }}">
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary btn-sm">Search</button>
+            <a href="{% url 'students-list-by-grade' grade.id %}" class="btn btn-secondary btn-sm">Clear</a>
+        </div>
+    </form>
+    </div>
+    <table class="table table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Student ID</th>
+          <th scope="col">Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if students %}
+        {% for student in students %}
+        <tr onclick="window.location.href='{% url 'student-detail' student.pk %}';" style="cursor: pointer;">
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ student.id }}</td>
+          <td>{{ student.name }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+      <p class="text-center">No students in the list!</p>
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock content %}
