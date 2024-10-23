@@ -39,11 +39,12 @@ class UserRegistrationForm(forms.ModelForm):
 class UserDetailUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'phone_number']
+        fields = ['first_name', 'last_name', 'phone_number', 'role']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control form-control-lg'}),
+            'role': forms.Select(attrs={'class': 'form-control form-control-lg'}),
         }
   
 class PasswordChangeForm(forms.Form):

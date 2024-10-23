@@ -6,7 +6,7 @@
         <div class="row justify-content-center px-5">
             <div class="col-md-4 mb-4">
                 <div class="card text-center card-hover-fx">
-                    <a href="#" style="text-decoration: none; color: inherit;">
+                    <a href="{% url 'staff-lists' 'librarian' %}" style="text-decoration: none; color: inherit;">
                         <div class="card-body">
                             <h5>Librarians</h5>
                         </div>
@@ -15,7 +15,7 @@
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card text-center card-hover-fx">
-                    <a href="#" style="text-decoration: none; color: inherit;">
+                    <a href="{% url 'staff-lists' 'office_staff' %}" style="text-decoration: none; color: inherit;">
                         <div class="card-body">
                             <h5>Office Staffs</h5>
                         </div>
@@ -38,7 +38,7 @@
         <div class="row justify-content-center px-5">
             <div class="col-md-4 mb-4">
                 <div class="card text-center card-hover-fx">
-                    <a href="#" style="text-decoration: none; color: inherit;">
+                    <a href="{% url 'fees-list' %}" style="text-decoration: none; color: inherit;">
                         <div class="card-body">
                             <h5>Fees Record</h5>
                         </div>
@@ -47,7 +47,7 @@
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card text-center card-hover-fx">
-                    <a href="#" style="text-decoration: none; color: inherit;">
+                    <a href="{% url 'library-history-list' %}" style="text-decoration: none; color: inherit;">
                         <div class="card-body">
                             <h5>Library Record</h5>
                         </div>
@@ -56,9 +56,18 @@
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card text-center card-hover-fx">
-                    <a href="#" style="text-decoration: none; color: inherit;">
+                    <a href="{% url 'admin-students-lists' %}" style="text-decoration: none; color: inherit;">
                         <div class="card-body">
                             <h5>Students</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center card-hover-fx">
+                    <a href="{% url 'manage-grades' %}" style="text-decoration: none; color: inherit;">
+                        <div class="card-body">
+                            <h5>Grade Management</h5>
                         </div>
                     </a>
                 </div>

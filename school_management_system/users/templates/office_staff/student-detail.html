@@ -45,10 +45,14 @@
             </tbody>
         </table>
         <div class="text-center mt-4">
-            <a href="{% url 'student-fee-details-list' student.pk %}" class="btn btn-success">Fee Detail</a>
-            <a href="{% url 'students-list-by-grade' student.grade.id %}" class="btn btn-primary">Back to Students List</a>
+            {% if user.is_authenticated %}
+            {% if is_office_staff or user.is_superuser %}
+            <a href="{% url 'student-fee-details-list' student.pk %}" class="btn btn-success">Fee Detail</a>        
             <a href="{% url 'student-update' student.pk %}" class="btn btn-warning">Update Student</a>
             <a href="{% url 'student-delete' student.grade.id student.pk  %}" class="btn btn-danger">Delete Student</a>
+            {% endif %}
+            {% endif %}
+            <a href="{% url 'students-list-by-grade' student.grade.id %}" class="btn btn-primary">Students List</a>
         </div>
     </div>
 </div>

@@ -1,21 +1,22 @@
 {% extends 'shared/base.html' %}
 {% block title %}
-<title>Student Fees Record</title>
+<title>Library Books List</title>
 {% endblock %}
 {% block content %}
 <div class="col-md-8 mx-auto section-divider">
     <div class="container-fluid py-5 bg-light">
         <div class="mb-5">
-            <h2 class="fw-bold mb-2 text-uppercase text-center">Fees Record</h2>
+            <h2 class="fw-bold mb-2 text-uppercase text-center">Library Books List</h2>
         </div>
         <div class="col-md-8 ms-auto">
           <form method="get" class="d-flex align-items-center mb-4">
             <div class="d-flex flex-grow-1 me-2">
-                <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Search by name" value="{{ search_query }}">
+                <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Search record" value="{{ search_query }}">
             </div>
             <div>
                 <button type="submit" class="btn btn-primary btn-sm">Search</button>
-                <a href="{% url 'fees-list' %}" class="btn btn-secondary btn-sm">Clear</a>
+                <a href="{% url 'manage-books' %}" class="btn btn-secondary btn-sm">Clear</a>
+                <a href="{% url 'add-books' %}" class="btn btn-success btn-sm">Add Books</a>
             </div>
         </form>
         </div>
@@ -24,22 +25,23 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">ID</th>
-                <th scope="col">Student Name</th>
-                <th scope="col">Payment Date</th>
+                <th scope="col">Book</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              {% if fees %}
-              {% for fee in fees %}
-              <tr onclick="window.location.href='{% url 'student-fee-detail' fee.pk %}';" style="cursor: pointer;">
+              {% if books %}
+              {% for book in books %}
+              <tr">
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ fee.id }}</td>
-                <td>{{ fee.student.name }}</td>
-                <td>{{ fee.date_paid }}</td>
+                <td>{{ book.id }}</td>
+                <td>{{ book.name }}</td>
+                <td>
+                  <a href="{% url 'delete-books' book.pk %}" class="btn btn-link p-0 text-danger"><i class="fa-solid fa-x"></i></a></td>
               </tr>
               {% endfor %}
               {% else %}
-            <p class="text-center">No fees details in the list!</p>
+            <p class="text-center">No books in the list!</p>
             {% endif %}
             </tbody>
           </table>

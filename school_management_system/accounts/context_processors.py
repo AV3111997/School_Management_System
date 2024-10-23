@@ -4,8 +4,8 @@ def user_role(request):
     context = {}
     if request.user.is_authenticated:
         context = {
-            'is_librarian': request.user.role == 'Librarian',
-            'is_office_staff': request.user.role == 'Office Staff',
+            'is_librarian': request.user.role == 'librarian',
+            'is_office_staff': request.user.role == 'office_staff',
         }
     else:
         context = {

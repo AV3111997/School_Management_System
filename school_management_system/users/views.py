@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib import messages
 from .models import Students, Books, Library, Fees, Grade
-from .forms import StudentRegisterForm, BooksForm, LibraryForm, FeesForm, FeesUpdateForm
+from .forms import StudentRegisterForm, BooksForm, LibraryForm, FeesForm, FeesUpdateForm, GradeForm
 from accounts.models import User
 from django.utils import timezone
 
@@ -102,6 +102,7 @@ class StudentFeeDetailsListView(ListView):
     model = Fees
     template_name = 'office_staff/student-fee-details-list.html'
     context_object_name = 'fees'
+    paginate_by = 10
 
     def get_queryset(self):
         student_id = self.kwargs['pk']
@@ -190,5 +191,131 @@ class FeesCreateView(CreateView):
     form_class = FeesForm
     success_url = reverse_lazy('fees-list')
 
+class AdminStudentSectionView(ListView):
+    model = Grade
+    template_name = 'admin/students-by-grade-section.html'
+    context_object_name = 'grades'
+
+class StaffListView(ListView):
+    model = User
+    template_name = 'admin/staffs-lists.html'
+    context_object_name = 'staffs'
+    paginate_by = 10
+
+    def get_queryset(self):
+        role = self.kwargs.get('role')
+        search_query = self.request.GET.get('search', '')
+        queryset = User.objects.filter(role=role)
+        if search_query:
+            queryset = queryset.filter(
+                Q(first_name__icontains=search_query) | 
+                Q(last_name__icontains=search_query)
+            )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['role'] = self.kwargs.get('role').capitalize()
+        context['search_query'] = self.request.GET.get('search', '')
+        return context
+
+class LibrarianStudentSectionView(ListView):
+    model = Grade
+    template_name = 'librarian/students-by-grade-section.html'
+    context_object_name = 'grades'
+    paginate_by = 10
+
+class LibraryCreateView(CreateView):
+    model = Library
+    form_class = LibraryForm
+    template_name = 'librarian/library-record-create.html'
+    success_url = reverse_lazy('library-history-list')
+
+class LibraryHistoryListView(ListView):
+    model = Library
+    template_name = 'librarian/library-history.html'
+    context_object_name = 'library_records'
+    paginate_by = 10
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            queryset = queryset.filter(
+                Q(student__name__icontains=search_query)
+            )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')
+        return context
+
+class LibraryRecordDetailView(DetailView):
+    model = Library
+    template_name = 'librarian/library-record-detail.html'
+    context_object_name = 'record'
+
+class LibraryRecordDeleteView(DeleteView):
+    model = Library
+    template_name = 'librarian/library-record-delete.html'
+    context_object_name = 'record'
+    success_url = reverse_lazy('library-history-list')
+
+class AddBooksView(CreateView):
+    model = Books
+    form_class = BooksForm
+    template_name = 'librarian/add-books.html'
+    success_url = reverse_lazy('add-books')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Book have been added successfully.")
+        return super().form_valid(form)
+
+class ManageBooksView(ListView):
+    model = Books
+    template_name = 'librarian/manage-books.html'
+    context_object_name = 'books'
+    paginate_by = 10
+
+class DeleteBooksView(DeleteView):
+    model = Books
+    template_name = 'librarian/delete-books.html'
+    context_object_name = 'book'
+    success_url = reverse_lazy('manage-books')
+
+class ManageGradeView(ListView):
+    model = Grade
+    template_name = 'admin/manage-grades.html'
+    context_object_name = 'grades'
+
+    def get_queryset(self):
+        return Grade.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = GradeForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = GradeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('manage-grades')
+        else:
+            context = self.get_context_data()
+            context['form'] = form
+            return self.render_to_response(context)
+
+
+class DeleteGradeView(DeleteView):
+    model = Grade
+    template_name = 'admin/manage-grades.html'
+    success_url = reverse_lazy('manage-grades')
     
 
+def update_date_returned(request, pk):
+    record = get_object_or_404(Library, pk=pk)
+    record.date_returned = timezone.now()
+    record.save()
+    return redirect('library-record-detail', pk=record.pk)

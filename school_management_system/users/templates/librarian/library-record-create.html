@@ -1,0 +1,32 @@
+{% extends 'shared/base.html' %}
+{% block title %}
+<title>New Library Record</title>
+{% endblock %}
+{% block content %}
+<div class="container col-md-8 bg-light py-5 h-100 section-divider">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-8">
+            <div class="card bg-light text-dark shadow" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+                    <div class="mb-md-4 mt-md-4 pb-5">
+                        <h2 class="fw-bold mb-2 text-uppercase">New Record</h2>
+                        <form method="POST" action="{% url 'library-create' %}">
+                            {% csrf_token %}
+                            <div data-mdb-input-init class="form-outline form-white mb-4">
+                                {{ form.book }}
+                                <label class="form-label">Book</label>
+                            </div>
+                            <div data-mdb-input-init class="form-outline form-white mb-4">
+                                {{ form.student }}
+                                <label class="form-label">Borrower</label>
+                            </div>
+                            <button data-mdb-button-init data-mdb-ripple-init
+                                class="btn btn-outline-primary btn-lg px-5" type="submit">Create Record</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

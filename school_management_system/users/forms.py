@@ -23,23 +23,37 @@ class BooksForm(forms.ModelForm):
     class Meta:
         model = Books
         fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class GradeForm(forms.ModelForm):
+    class Meta:
+        model = Grade
+        fields = ['name']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
 class LibraryForm(forms.ModelForm):
     class Meta:
         model = Library
-        fields = ['book', 'student', 'date_returned']
+        fields = ['book', 'student']
+        widgets = {
+            'book': forms.Select(attrs={'class': 'form-control', 'size': '0'}),
+            'student': forms.Select(attrs={'class': 'form-control', 'size': '0'}),
+        }
 
 class FeesForm(forms.ModelForm):
     class Meta:
         model = Fees
-        fields = ['student', 'amount', 'due_date', 'payment_status', 'payment_method', 'date_paid']
+        fields = ['student', 'amount', 'due_date', 'payment_status', 'payment_method']
         widgets = {
             'student': forms.Select(attrs={'class': 'form-control', 'size': '0'}),
             'amount': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
             'due_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'payment_status': forms.Select(attrs={'class': 'form-control'}),
             'payment_method': forms.Select(attrs={'class': 'form-control'}),
-            'date_paid': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
 
 class FeesUpdateForm(forms.ModelForm):

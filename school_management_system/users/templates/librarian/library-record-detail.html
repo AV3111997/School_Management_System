@@ -1,0 +1,60 @@
+{% extends 'shared/base.html' %}
+{% block title %}
+<title>Library Record Details</title>
+{% endblock %}
+{% block content %}
+<div class="col-md-8 mx-auto section-divider">
+    <div class="container-fluid py-5 bg-light">
+        <div class="mb-5">
+            <h2 class="fw-bold mb-2 text-uppercase text-center">Library Record Details</h2>
+        </div>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td><strong>ID:</strong></td>
+                    <td>{{ record.id }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Book</strong></td>
+                    <td>{{ record.book }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Borrowed By</strong></td>
+                    <td>{{ record.student.name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Grade</strong></td>
+                    <td>{{ record.student.grade.name }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Date Borrowed</strong></td>
+                    <td>{{ record.date_borrowed }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Date Returned</strong></td>
+                    <td>{% if record.date_returned %}{{ record.date_returned }}
+                        {% else %}Not Returned Yet!
+                        {% if user.is_authenticated %}
+                        {% if is_librarian or user.is_superuser %}
+                        <form method="POST" action="{% url 'update-date-returned' record.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary btn-sm">Mark as Returned</button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center mt-4">
+            <a href="{% url 'library-history-list' %}" class="btn btn-success">Back to List</a>
+            {% if user.is_authenticated %}
+            {% if is_librarian or user.is_superuser %}
+            <a href="{% url 'library-record-delete' record.pk %}" class="btn btn-danger">Delete Library Record</a>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

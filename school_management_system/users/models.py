@@ -91,7 +91,6 @@ class Library(models.Model):
         verbose_name='Date Returned',
         null=True,
         blank=True,
-        default="Not yet returned"
     )
 
     def __str__(self):

@@ -1,0 +1,56 @@
+{% extends 'shared/base.html' %}
+{% block title %}
+<title>Library History Record</title>
+{% endblock %}
+{% block content %}
+<div class="col-md-8 mx-auto section-divider">
+    <div class="container-fluid py-5 bg-light">
+        <div class="mb-5">
+            <h2 class="fw-bold mb-2 text-uppercase text-center">Library History Record</h2>
+        </div>
+        <div class="col-md-8 ms-auto">
+          <form method="get" class="d-flex align-items-center mb-4">
+            <div class="d-flex flex-grow-1 me-2">
+                <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Search record" value="{{ search_query }}">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                <a href="{% url 'library-history-list' %}" class="btn btn-secondary btn-sm">Clear</a>
+            </div>
+        </form>
+        </div>
+        <table class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">Book</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Borrowed Date</th>
+                <th scope="col">Returned Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if library_records %}
+              {% for record in library_records %}
+              <tr onclick="window.location.href='{% url 'library-record-detail' record.pk %}';" style="cursor: pointer;">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ record.id }}</td>
+                <td>{{ record.book }}</td>
+                <td>{{ record.student.name }}</td>
+                <td>{{ record.student.grade.name }}</td>
+                <td>{{ record.date_borrowed }}</td>
+                <td>{% if record.date_returned %} {{ record.date_returned }}
+                  {% else %} Not returned yet {% endif %}</td>
+                </td>
+              </tr>
+              {% endfor %}
+              {% else %}
+            <p class="text-center">No fees details in the list!</p>
+            {% endif %}
+            </tbody>
+          </table>
+    </div>
+</div>
+{% endblock content %}

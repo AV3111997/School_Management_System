@@ -38,8 +38,8 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
-        ("Librarian", "Librarian"),
-        ("Office Staff", "Office Staff"),   
+        ("librarian", "Librarian"),
+        ("office_staff", "Office Staff"),   
     ]
 
     first_name = models.CharField(
@@ -81,3 +81,4 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def get_short_name(self):
         return self.first_name
+    

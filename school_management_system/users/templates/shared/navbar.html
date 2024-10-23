@@ -36,11 +36,34 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         {% if user.is_superuser %}
                         <li><a class="dropdown-item">Manage Staffs</a></li>
+                        <li><div class="dropdown-divider"></div></li>
                         <li><a class="dropdown-item" href="{% url 'users-list' %}">Users List</a></li>
                         <li><a class="dropdown-item" href="{% url 'register' %}">Register User</a></li>
                         <li><div class="dropdown-divider"></div></li>
-                        {% else %}
-                        <li><a class="dropdown-item" href="{% url 'user-detail-update' %}">Details</a></li>
+                        <li><a class="dropdown-item">Manage System</a></li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li><a class="dropdown-item" href="{% url 'manage-grades' %}">Grade Management</a></li>
+                        <li><a class="dropdown-item" href="{% url 'library-history-list' %}">Library Records</a></li>
+                        <li><a class="dropdown-item" href="{% url 'fees-list' %}">Fees Record</a></li>
+                        <li><a class="dropdown-item" href="{% url 'admin-students-lists' %}">Students</a></li>
+                        <li><div class="dropdown-divider"></div></li>
+                        {% elif is_office_staff %}
+                        <li><a class="dropdown-item">Manage</a></li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li><a class="dropdown-item" href="{% url 'user-detail-update' %}">Your Account</a></li>
+                        <li><a class="dropdown-item" href="{% url 'fees-list' %}">Fees</a></li>
+                        <li><a class="dropdown-item" href="{% url 'fees-create' %}">Make Fee Payment</a></li>
+                        <li><a class="dropdown-item" href="{% url 'student-register' %}">Register Student</a></li>
+                        <li><a class="dropdown-item" href="{% url 'library-history-list' %}">Library Record</a></li>
+                        {% elif is_librarian %}
+                        <li><a class="dropdown-item">Manage</a></li>
+                        <li><div class="dropdown-divider"></div></li>
+                        <li><a class="dropdown-item" href="{% url 'user-detail-update' %}">Your Account</a></li>
+                        <li><a class="dropdown-item" href="{% url 'library-create' %}">New Library Record</a></li>
+                        <li><a class="dropdown-item" href="{% url 'library-history-list' %}">Library Record</a></li>
+                        <li><a class="dropdown-item" href="{% url 'manage-books' %}">Manage Books</a></li>
+                        <li><a class="dropdown-item" href="{% url 'fees-list' %}">Fees</a></li>
+                        <li><a class="dropdown-item" href="{% url 'librarian-students-lists' %}">Students</a></li>
                         {% endif %}
                         <li>
                             <form method="POST" action="{% url 'logout' %}">

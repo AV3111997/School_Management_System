@@ -32,7 +32,15 @@
                 </tr>
                 <tr>
                     <td><strong>Payment Status</strong></td>
-                    <td>{{ student_fee.payment_status }}</td>
+                    <td>
+                        <span 
+                          {% if student_fee.payment_status == 'paid' %} class="text-success" 
+                          {% elif student_fee.payment_status == 'partially_paid' %} class="text-warning" 
+                          {% else %} class="text-danger" 
+                          {% endif %}>
+                          {{ student_fee.payment_status }}
+                        </span>
+                      </td>
                 </tr>
                 <tr>
                     <td><strong>Payment Method</strong></td>

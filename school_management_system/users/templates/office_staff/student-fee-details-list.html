@@ -24,7 +24,15 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ fee.id }}</td>
                 <td>{{ fee.date_paid }}</td>
-                <td><span class="text-success">{{ fee.payment_status}}</span></td>
+                <td>
+                  <span 
+                    {% if fee.payment_status == 'paid' %} class="text-success" 
+                    {% elif fee.payment_status == 'partially_paid' %} class="text-warning" 
+                    {% else %} class="text-danger" 
+                    {% endif %}>
+                    {{ fee.payment_status }}
+                  </span>
+                </td>
               </tr>
               {% endfor %}
               {% else %}
@@ -33,7 +41,7 @@
             </tbody>
           </table>
           <div class="text-center mt-4">
-            <a href="{% url 'student-detail' student.pk %}" class="btn btn-primary px-5">Back to Student Details</a>
+            <a href="{% url 'student-detail' student.pk %}" class="btn btn-primary px-5">Student Details</a>
           </div>
     </div>
 </div>
