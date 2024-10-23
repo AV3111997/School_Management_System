@@ -75,7 +75,7 @@ class StudentUpdateView(UpdateView):
         return get_object_or_404(Students, pk=student_pk)
     
     def get_success_url(self):
-        return reverse_lazy('student-fee-update', kwargs={'pk': self.object.pk})
+        return reverse_lazy('student-update', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
         messages.success(self.request, "Student's details have been updated successfully.")
@@ -223,7 +223,6 @@ class LibrarianStudentSectionView(ListView):
     model = Grade
     template_name = 'librarian/students-by-grade-section.html'
     context_object_name = 'grades'
-    paginate_by = 10
 
 class LibraryCreateView(CreateView):
     model = Library
@@ -307,13 +306,11 @@ class ManageGradeView(ListView):
             context['form'] = form
             return self.render_to_response(context)
 
-
 class DeleteGradeView(DeleteView):
     model = Grade
     template_name = 'admin/manage-grades.html'
     success_url = reverse_lazy('manage-grades')
     
-
 def update_date_returned(request, pk):
     record = get_object_or_404(Library, pk=pk)
     record.date_returned = timezone.now()
